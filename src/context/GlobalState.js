@@ -1,4 +1,4 @@
-import React ,{createContext,useReducer} from 'react';
+import React ,{createContext,useEffect,useReducer} from 'react';
 import AppReducer from './AppReducer';
 
 //Initial state
@@ -13,6 +13,23 @@ export const GlobalContext = createContext(initialState);
 export const GlobalProvider = ({children})=>{
     const [state,dispatch] = useReducer(AppReducer,initialState);
 
+    useEffect(()=>{
+        let list = JSON.parse(localStorage.getItem('trans'))
+        if( list.length > 0){
+            // eslint-disable-next-line
+            list.map((tran)=>{
+                dispatch({
+                    type : 'ADD_TRANSACTION',
+                    payload : tran
+                })
+            })
+        }
+    },[])
+    
+    useEffect(() => {
+        localStorage.setItem("trans",JSON.stringify(state.transactions))
+    }, [state])
+    
     //Actions
     function deleteTransaction(id){
         dispatch({
