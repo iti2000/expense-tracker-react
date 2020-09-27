@@ -21,6 +21,9 @@ export default function AddTransactionn() {
         amount : +amount
       }
 
+      setText('')
+      setAmount(0)
+
       addTransaction(newTransaction)
 
     }
