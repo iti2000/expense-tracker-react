@@ -15,7 +15,7 @@ export const GlobalProvider = ({children})=>{
 
     useEffect(()=>{
         let list = JSON.parse(localStorage.getItem('trans'))
-        if( list.length > 0){
+        if( list && list.length > 0){
             // eslint-disable-next-line
             list.map((tran)=>{
                 dispatch({
